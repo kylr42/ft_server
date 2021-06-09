@@ -17,18 +17,17 @@ echo "FLUSH PRIVILEGES;" | mysql -u root
 mysql wordpress < backup.sql
 
 #install phpMyAdmin
-unzip tmp/phpMyAdmin-5.1.0-all-languages.zip -d /var/www/html/phpmyadmin
+unzip -qq tmp/phpMyAdmin-5.1.0-all-languages.zip -d /var/www/html/phpmyadmin
 mv /var/www/html/phpmyadmin/phpMyAdmin-5.1.0-all-languages/* /var/www/html/phpmyadmin && rm -rf /var/www/html/phpmyadmin/phpMyAdmin-5.1.0-all-languages/
 
 #install WordPress
-tar xzvf tmp/latest.tar.gz -C /var/www/html
+tar xf tmp/latest.tar.gz -C /var/www/html
 
 #config ssl
 openssl req -newkey rsa:4096 -x509 -sha256 -days 1 -nodes -out crt.crt -keyout key.key -subj "/C=RU/ST=Tatarstan/L=Kazan/O=Ecole 42/OU=Terra/CN=localhost"
 
 #granting rights of the files
-chown www-data -R /var/www;
-chmod 777 -R /var/www;
+chmod 755 -R /var/www;
 
 #config phpMyAdmin
 mv /tmp/config.inc.php /var/www/html/phpmyadmin/
